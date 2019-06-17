@@ -165,13 +165,9 @@ namespace NuggetEventsManagement.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-                   
-                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Hi " + model.FirstName + ",<br/> Thank you for choosing <b>Nugget Events Management App </b>. <br/>To further continue your registration, Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here.</a>   <br/> <br/>Regards, <br/> <b> Nugget Events Management Support Team </b> <br/> <b> Phone : 071 7570 769 </b> <br/> <b> Email : nuggetaccount@emichurchbloem.org.za  </b> <br/> <b> Address: 19 Sermuaid Mansions,Selborne Avenue,Willows Bloemfontein 9300 </b> " );
-
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Hi " + model.FirstName + ",<br/><br/> Thank you for choosing <b>Nugget Events Management App </b>.<br/> <br/>To further continue your registration, Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here.</a>   <br/> <br/>Regards,<br/> <br/> <b> Nugget Events Management Support Team </b> <br/> <b> Phone : 071 7570 769 </b> <br/> <b> Email : nuggetaccount@emichurchbloem.org.za  </b> <br/> <b> Address: 19 Sermuaid Mansions,Selborne Avenue,Willows Bloemfontein 9300 </b> " );
                     return View("DisplayEmail");
                 }
                 AddErrors(result);
@@ -222,7 +218,7 @@ namespace NuggetEventsManagement.Controllers
                 //Send an email with this link
                  string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password","Hi "+ user.FirstName + " <br/> + You have just chosen to reset your password,If this wasn't initiated by you please ignore otherwise reset your password by clicking <a href=\"" + callbackUrl + "\">here.</a>");
+                await UserManager.SendEmailAsync(user.Id, "Reset Password","Hi "+ user.FirstName + ", <br/> <br/> + You have just chosen to reset your password,If this wasn't initiated by you please ignore otherwise reset your password by clicking <a href=\"" + callbackUrl + "\">here.</a> <br/> <br/>Regards, <br/><br/> <b> Nugget Events Management Support Team </b> <br/> <b> Phone : 071 7570 769 </b> <br/> <b> Email : nuggetaccount@emichurchbloem.org.za  </b> <br/> <b> Address: 19 Sermuaid Mansions,Selborne Avenue,Willows Bloemfontein 9300 </b>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 

@@ -2,9 +2,15 @@
     ViewBag.Title = "Confirm Email";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div>
-    <p>
+
+<div class="jumbotron Jumbo_Bacground text-center Jumbo_Bacground">
+
+
+    <img src="~/Images/Untitled-1.png" height="100" width="300" class="img-fluid justify-content-center text-center" />
+
+    <p class="text-white font-weight-bold p-2" style="font-family:Montserrat">
+
         Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+
     </p>
 </div>
