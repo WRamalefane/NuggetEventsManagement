@@ -218,7 +218,7 @@ namespace NuggetEventsManagement.Controllers
                 //Send an email with this link
                  string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password","Hi "+ user.FirstName + ", <br/> <br/> + You have just chosen to reset your password,If this wasn't initiated by you please ignore otherwise reset your password by clicking <a href=\"" + callbackUrl + "\">here.</a> <br/> <br/>Regards, <br/><br/> <b> Nugget Events Management Support Team </b> <br/> <b> Phone : 071 7570 769 </b> <br/> <b> Email : nuggetaccount@emichurchbloem.org.za  </b> <br/> <b> Address: 19 Sermuaid Mansions,Selborne Avenue,Willows Bloemfontein 9300 </b>");
+                await UserManager.SendEmailAsync(user.Id, "Reset Password","Hi "+ user.FirstName + ", <br/><br/>You have just chosen to reset your password,If this wasn't initiated by you please ignore otherwise reset your password by clicking <a href=\"" + callbackUrl + "\">here.</a> <br/> <br/>Regards, <br/><br/> <b> Nugget Events Management Support Team </b> <br/> <b> Phone : 071 7570 769 </b> <br/> <b> Email : nuggetaccount@emichurchbloem.org.za  </b> <br/> <b> Address: 19 Sermuaid Mansions,Selborne Avenue,Willows Bloemfontein 9300 </b>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
