@@ -1,12 +1,10 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 65px;
     padding-bottom: 20px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -21,4 +19,17 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.Jumbo_Bacground {
+    background-size: cover;
+    background-image: url('/Images/abstract.jpg')
+}
+
+.transparent-colour {
+    background-color: rgba(255,255,255,0.6);
+}
+
+.navbar {
+    background-color: white;
 }

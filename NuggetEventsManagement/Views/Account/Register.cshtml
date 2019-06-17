@@ -3,39 +3,80 @@
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
+<div class="jumbotron Jumbo_Bacground text-center justify-content-center ">
+    <img src="~/Images/Untitled-1.png" height="100" width="300" class="img-fluid justify-content-center text-center" />
+    <div class="container" style="padding-top:10px;">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+        {
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+            @Html.AntiForgeryToken()
+
+
+            <div class="form-row justify-content-center">
+                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", placeholder = "Name", style = "margin:5px;" })
+            </div>
+            <div class="form-row justify-content-center">
+                @if (!ViewData.ModelState.IsValidField(nameof(Model.FirstName)))
+                {
+                    <div class="container text-center text-secondary font-weight-light" style="font-family:'Montserrat'">
+                        <i class="fa fa-warning text-danger"></i>  @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger font-weight-bold " })
+                    </div>
+                }
+            </div>
+            <div class="form-row justify-content-center">
+                @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", placeholder = "Surname", style = "margin:5px;" })
+            </div>
+            <div class="form-row justify-content-center">
+                @if (!ViewData.ModelState.IsValidField(nameof(Model.Surname)))
+                {
+                    <div class="container text-center text-secondary font-weight-light" style="font-family:'Montserrat'">
+                        <i class="fa fa-warning text-danger"></i>  @Html.ValidationMessageFor(x => x.Surname, "", new { @class = "text-danger font-weight-bold " })
+                    </div>
+                }
+            </div>
+
+
+
+            <div class="form-row justify-content-center">
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "Email Address", style = "margin:5px;" })
+            </div>
+            <div class="form-row justify-content-center">
+                @if (!ViewData.ModelState.IsValidField(nameof(Model.Email)))
+                {
+                    <div class="container text-center text-secondary font-weight-light" style="font-family:'Montserrat'">
+                        <i class="fa fa-warning text-danger"></i>  @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger font-weight-bold " })
+                    </div>
+                }
+            </div>
+
+            <div class="form-row justify-content-center">
+                @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = "Password", style = "margin:5px;" })
+            </div>
+            <div class="form-row justify-content-center">
+                @if (!ViewData.ModelState.IsValidField(nameof(Model.Password)))
+                {
+                    <div class="container text-center text-secondary font-weight-light" style="font-family:'Montserrat'">
+                        <i class="fa fa-warning text-danger"></i>  @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger font-weight-bold " })
+                    </div>
+                }
+            </div>
+            <div class="form-row justify-content-center">
+                @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password", style = "margin:5px;" })
+            </div>
+          
+            
+            <div class="container justify-content-center pt-2">
+                <button class="btn  w-auto btn-primary font-weight-bold" type="submit" value="Register" role="button"> Register </button>
+
+                <p class="font-weight-light text-white p-3 text-wrap" style="font-family:montserrat">
+                    Register your account today and become part of the nugget family with about 10000+ users using the app on a daily basis.
+                </p>
+
+
+            </div>
+        }
+
+    </div>
+    </div>
+   
