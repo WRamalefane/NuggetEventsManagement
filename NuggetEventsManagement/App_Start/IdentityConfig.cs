@@ -11,18 +11,53 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using NuggetEventsManagement.Models;
+using System.Configuration;
+using System.Net;
+using System.Net.Mail;
 
 namespace NuggetEventsManagement
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = (new MailAddress("nuggetaccount@emichurchbloem.org.za"));
+            //who the message is to
+            mailMessage.To.Add(new MailAddress(message.Destination));
+            mailMessage.Body = message.Body;
+            mailMessage.Subject = message.Subject;
+            mailMessage.IsBodyHtml = true;
+            using (SmtpClient smtp = new SmtpClient())
+            {
+                smtp.Host = ConfigurationManager.AppSettings["host"];
+                smtp.Port = int.Parse(ConfigurationManager.AppSettings["port"]);
+                smtp.EnableSsl = bool.Parse(ConfigurationManager.AppSettings["ssl"]);
+                smtp.UseDefaultCredentials = true;
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(RemoteServerCertificateValidationCallback);
+
+                smtp.Credentials = new NetworkCredential
+                {
+                    Password = ConfigurationManager.AppSettings["password"],
+                    UserName = ConfigurationManager.AppSettings["username"]
+
+                };
+                await smtp.SendMailAsync(mailMessage);
+            };
+
+
+
+            await Task.FromResult(0);
+        }
+
+        private bool RemoteServerCertificateValidationCallback(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
+        {
+
+            return true;
         }
     }
-
+   
     public class SmsService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)
